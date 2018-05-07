@@ -1,5 +1,6 @@
 # 1. 简介
 文件（excel，txt，csv）和java bean list映射功能，可方便的用于项目中文件的导入导出功能；支持多种配置方式：spring xml，spring namespace，annotation等方式配置。
+支持jdk版本：1.8
 
 # 2. 接入方式
 # 2.1. spring xml配置方式

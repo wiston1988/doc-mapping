@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.doc-mapping.org/schema/doc-mapping"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:beans="http://www.springframework.org/schema/beans"
+            targetNamespace="http://www.doc-mapping.org/schema/doc-mapping"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+
+    <xsd:element name="parser">
+        <xsd:annotation>
+            <xsd:documentation>
+                <![CDATA[ doc mapping configuration section to integrate with Spring.]]>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all minOccurs="1">
+                <xsd:element name="field-parsers" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:element ref="beans:bean">
+                                </xsd:element>
+                                <xsd:element ref="beans:ref">
+                                </xsd:element>
+                            </xsd:choice>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="fields" minOccurs="1">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="field" type="fieldType" minOccurs="1" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:all>
+            <xsd:attribute name="id" type="xsd:string" use="required"/>
+            <xsd:attribute name="defaultDateFormat" type="xsd:string" use="optional"/>
+            <xsd:attribute name="defaultNumberFormat" type="xsd:string" use="optional"/>
+            <xsd:attribute name="beanClass" type="xsd:string" use="required"/>
+            <xsd:attribute name="ignoreError" type="xsd:boolean" use="optional"/>
+            <xsd:attribute name="ignoreEmpty" type="xsd:boolean" use="optional"/>
+            <xsd:attribute name="headerSupport" type="xsd:boolean" use="optional"/>
+            <xsd:attribute name="skipRowsNum" type="xsd:int" use="optional"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="builder">
+        <xsd:annotation>
+            <xsd:documentation>
+                <![CDATA[ doc mapping configuration section to integrate with Spring.]]>
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all minOccurs="1">
+                <xsd:element name="field-renders" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:element ref="beans:bean">
+                                </xsd:element>
+                                <xsd:element ref="beans:ref">
+                                </xsd:element>
+                            </xsd:choice>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="fields" minOccurs="1">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="field" type="fieldType" minOccurs="1" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:all>
+            <xsd:attribute name="id" type="xsd:string" use="required"/>
+            <xsd:attribute name="defaultDateFormat" type="xsd:string" use="optional"/>
+            <xsd:attribute name="defaultNumberFormat" type="xsd:string" use="optional"/>
+            <xsd:attribute name="beanClass" type="xsd:string" use="required"/>
+            <xsd:attribute name="ignoreError" type="xsd:boolean" use="optional"/>
+            <xsd:attribute name="ignoreEmpty" type="xsd:boolean" use="optional"/>
+            <xsd:attribute name="headerSupport" type="xsd:boolean" use="optional"/>
+            <xsd:attribute name="buildStrategyClass" type="xsd:string" use="optional"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="fieldType">
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:attribute name="columnName" type="xsd:string" use="optional"/>
+        <xsd:attribute name="multiColumns" type="xsd:string" use="optional"/>
+        <xsd:attribute name="required" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="converter" type="xsd:string" use="optional"/>
+        <xsd:attribute name="formatStr" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:doc-mapping="http://www.doc-mapping.org/schema/doc-mapping"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.doc-mapping.org/schema/doc-mapping http://www.doc-mapping.org/schema/doc-mapping.xsd">
+
+
+    <doc-mapping:parser id="baseImport" beanClass="org.doc.mapping.test.model.Teacher" defaultDateFormat="MM/dd/yyyy"
+                        defaultNumberFormat="12" ignoreError="false">
+        <doc-mapping:field-parsers>
+            <bean class="org.doc.mapping.test.parsers.IntegerParser"/>
+        </doc-mapping:field-parsers>
+        <doc-mapping:fields>
+            <doc-mapping:field name="student.studentName" multiColumns="student name,student name1,student name2"/>
+            <doc-mapping:field name="name" columnName="name" converter="org.doc.mapping.test.parsers.ToUpperCaseParser"/>
+            <doc-mapping:field name="age" columnName="age"/>
+        </doc-mapping:fields>
+    </doc-mapping:parser>
+
+    <doc-mapping:parser id="advancedImport" beanClass="org.doc.mapping.test.model.AdvancedBean" defaultDateFormat="yyyyMMdd"
+                        defaultNumberFormat="5" ignoreError="false">
+        <doc-mapping:fields>
+            <doc-mapping:field name="upperCaseField" columnName="UpperCase Column" required="true" converter="org.doc.mapping.test.parsers.ToUpperCaseParser" formatStr="20" />
+            <doc-mapping:field name="stringParserThrowEField" columnName="StringParserThrowE Column" converter="org.doc.mapping.test.parsers.ToStringParserThrowE" formatStr="30"/>
+            <doc-mapping:field name="advancedDateField" columnName="Date Column" required="true" converter="org.doc.mapping.test.parsers.AdvancedDateParser" formatStr="MM/dd/yyyy;yyyyMMdd"/>
+            <doc-mapping:field name="longField" columnName="Long Column" required="true" converter="org.doc.mapping.test.parsers.ToLongParserThrowE" formatStr="12"/>
+            <doc-mapping:field name="bigDecimalField" columnName="BigDecimal Column" required="true" converter="org.doc.mapping.test.parsers.ToBigDecimalParserThrowE" formatStr="^-?\d{1,3}(\.\d{0,5})?$"/>
+        </doc-mapping:fields>
+    </doc-mapping:parser>
+
+    <doc-mapping:parser id="importWithoutColumnName" beanClass="org.doc.mapping.test.model.Teacher" defaultDateFormat="yyyyMMdd"
+                        defaultNumberFormat="5" ignoreError="true" headerSupport="false">
+        <doc-mapping:fields>
+            <doc-mapping:field name="student.studentName"/>
+            <doc-mapping:field name="name"/>
+            <doc-mapping:field name="age"/>
+        </doc-mapping:fields>
+    </doc-mapping:parser>
+
+    <doc-mapping:parser id="importTextFile" beanClass="org.doc.mapping.test.model.Teacher" defaultDateFormat="yyyyMMdd"
+                        defaultNumberFormat="5" ignoreError="true">
+        <doc-mapping:fields>
+            <doc-mapping:field name="student.studentName" columnName="0,20"/>
+            <doc-mapping:field name="name" columnName="20,40"/>
+            <doc-mapping:field name="age" columnName="40,43"/>
+        </doc-mapping:fields>
+    </doc-mapping:parser>
+</beans>

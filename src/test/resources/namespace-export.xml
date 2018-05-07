@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:doc-mapping="http://www.doc-mapping.org/schema/doc-mapping"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.doc-mapping.org/schema/doc-mapping http://www.doc-mapping.org/schema/doc-mapping.xsd">
+
+
+    <doc-mapping:builder id="peopleExport" beanClass="org.doc.mapping.test.model.People" defaultDateFormat="yyyy-MM-dd"
+                        defaultNumberFormat="12" ignoreError="false">
+        <doc-mapping:fields>
+            <doc-mapping:field name="name" columnName="名字"/>
+            <doc-mapping:field name="birthday" columnName="生日" converter="org.doc.mapping.converter.render.DateFieldRender"/>
+        </doc-mapping:fields>
+    </doc-mapping:builder>
+
+</beans>

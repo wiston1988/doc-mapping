@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="baseImport" class="org.doc.mapping.DefaultDocMappingParser" init-method="init">
+        <property name="defaultDateFormat" value="MM/dd/yyyy"/>
+        <property name="defaultNumberFormat" value="12"/>
+        <property name="beanClass" value="org.doc.mapping.test.model.Teacher"/>
+        <property name="ignoreError" value="false"/>
+        <property name="fieldParsers">
+            <list>
+                <bean class="org.doc.mapping.test.parsers.IntegerParser"/>
+            </list>
+        </property>
+        <property name="fields">
+            <list>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="student.studentName"/>
+                    <property name="multiColumns">
+                        <list>
+                            <value>student name</value>
+                            <value>student name1</value>
+                            <value>student name2</value>
+                        </list>
+                    </property>
+                </bean>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="name"/>
+                    <property name="columnName" value="name"/>
+                    <property name="converter" value="org.doc.mapping.test.parsers.ToUpperCaseParser"/>
+                </bean>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="age"/>
+                    <property name="columnName" value="age"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="advancedImport" class="org.doc.mapping.DefaultDocMappingParser" init-method="init">
+        <property name="defaultDateFormat" value="yyyyMMdd"/>
+        <property name="defaultNumberFormat" value="5"/>
+        <property name="beanClass" value="org.doc.mapping.test.model.AdvancedBean"/>
+        <property name="ignoreError" value="false"/>
+        <property name="fields">
+            <list>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="upperCaseField"/>
+                    <property name="columnName" value="UpperCase Column"/>
+                    <property name="required" value="true"/>
+                    <property name="converter" value="org.doc.mapping.test.parsers.ToUpperCaseParser"/>
+                    <property name="formatStr" value="20"/>
+                </bean>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="stringParserThrowEField"/>
+                    <property name="columnName" value="StringParserThrowE Column"/>
+                    <property name="converter" value="org.doc.mapping.test.parsers.ToStringParserThrowE"/>
+                    <property name="formatStr" value="30"/>
+                </bean>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="advancedDateField"/>
+                    <property name="columnName" value="Date Column"/>
+                    <property name="required" value="true"/>
+                    <property name="converter" value="org.doc.mapping.test.parsers.AdvancedDateParser"/>
+                    <property name="formatStr" value="MM/dd/yyyy;yyyyMMdd"/>
+                </bean>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="longField"/>
+                    <property name="columnName" value="Long Column"/>
+                    <property name="required" value="true"/>
+                    <property name="converter" value="org.doc.mapping.test.parsers.ToLongParserThrowE"/>
+                    <property name="formatStr" value="12"/>
+                </bean>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="bigDecimalField"/>
+                    <property name="columnName" value="BigDecimal Column"/>
+                    <property name="required" value="true"/>
+                    <property name="converter" value="org.doc.mapping.test.parsers.ToBigDecimalParserThrowE"/>
+                    <property name="formatStr" value="^-?\d{1,3}(\.\d{0,5})?$"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="importWithoutColumnName" class="org.doc.mapping.DefaultDocMappingParser" init-method="init">
+        <property name="defaultDateFormat" value="yyyyMMdd"/>
+        <property name="defaultNumberFormat" value="5"/>
+        <property name="beanClass" value="org.doc.mapping.test.model.Teacher"/>
+        <property name="ignoreError" value="true"/>
+        <property name="headerSupport" value="false"/>
+        <property name="fields">
+            <list>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="student.studentName"/>
+                </bean>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="name"/>
+                </bean>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="age"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="importTextFile" class="org.doc.mapping.DefaultDocMappingParser" init-method="init">
+        <property name="defaultDateFormat" value="yyyyMMdd"/>
+        <property name="defaultNumberFormat" value="5"/>
+        <property name="beanClass" value="org.doc.mapping.test.model.Teacher"/>
+        <property name="ignoreError" value="true"/>
+        <property name="fields">
+            <list>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="student.studentName"/>
+                    <property name="columnName" value="0,20"/>
+                </bean>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="name"/>
+                    <property name="columnName" value="20,40"/>
+                </bean>
+                <bean class="org.doc.mapping.domain.Field">
+                    <property name="name" value="age"/>
+                    <property name="columnName" value="40,43"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+</beans>
